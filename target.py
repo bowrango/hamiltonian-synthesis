@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 import sympy as sp
 
+# barebones analog abstract instruction set (AAIS)
+
 @dataclass
 class Term:
     h: sp.Expr
@@ -16,3 +18,7 @@ class EvolvePiecewise:
 
     def add(self, h : sp.Expr, duration : float):
         self.terms.append(Term(h, duration))
+
+    def system(self):
+        # one expanded Hamiltonian per segment
+        return [sp.expand(step.h) for step in self.terms]
